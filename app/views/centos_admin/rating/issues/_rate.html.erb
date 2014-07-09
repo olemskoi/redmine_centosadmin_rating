@@ -1,0 +1,15 @@
+<% if User.current.allowed_to? :centos_rate, @project %>
+  <hr />
+  <div>
+    <div class="contextual">
+      <a>Rate</a>
+    </div>
+    <p><strong>Rating</strong></p>
+    <%
+      rating = CentosAdmin::Rating::Rating.issue_rating issue, User.current
+      if rating.exists?
+    %>
+      <p><%= rating.first %></p>
+    <% end %>
+  </div>
+<% end %>

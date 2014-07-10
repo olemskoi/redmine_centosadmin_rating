@@ -15,7 +15,11 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
   author_url 'http://example.com/about'
  
   project_module :centosadmin_rating do
-    permission :centos_rate, { 'centos_admin/rating/ratings' => [:new, :create] }
+    permission :centos_rate, { centos_ratings: [:new, :create, :show] }
     permission :centos_be_rated, {}
+  end
+
+  Redmine::Activity.map do |activity|
+    activity.register :centos_ratings
   end
 end

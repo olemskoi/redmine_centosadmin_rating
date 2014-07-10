@@ -1,15 +1,23 @@
-<% if User.current.allowed_to? :centos_rate, @project %>
+<% 
+  assigned = issue.assigned_to
+
+  if assigned && 
+     assigned.is_a?(User) && 
+     assigned.allowed_to?( :centos_be_rated, @project ) &&
+     User.current.allowed_to?( :centos_rate, @project )
+
+    rating = CentosRating.issue_rating( issue, User.current ).first
+%>
   <hr />
   <div>
-    <div class="contextual">
-      <a>Rate</a>
-    </div>
-    <p><strong>Rating</strong></p>
-    <%
-      rating = CentosAdmin::Rating::Rating.issue_rating issue, User.current
-      if rating.exists?
-    %>
-      <p><%= rating.first %></p>
+    <% if rating.nil? %>
+      <div class="contextual">
+        <%= link_to l(:button_rate), new_issue_rating_path(issue) %>
+      </div>
+    <% end %>
+    <p><strong><%= l(:label_centos_rating) %></strong></p>
+    <% if rating %>
+      <p><strong><%= rating.mark %>:</strong> <%= rating.comments %></p>
     <% end %>
   </div>
 <% end %>

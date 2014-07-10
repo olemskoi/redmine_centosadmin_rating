@@ -1,0 +1,33 @@
+<%= title l(:label_centos_rating) %>
+
+<%= labelled_form_for @rating, 
+                      url: user_ratings_path(@rating.evaluated),
+                      html: { id: 'centos-rating-form' } do |f| %>
+
+  <%= error_messages_for @rating %>
+
+  <div class="box tabular">
+    <div id="all_attributes">
+      <%= labelled_fields_for :rating, @rating do |f| %>
+        <% if @rating.issue %>
+          <p>
+            <%= f.hidden_field :issue_id %>
+            <%= f.hidden_field :project_id %>
+            <label><%= l :label_issue %></label>
+            <span><%= @rating.issue.subject %></span>
+          </p>
+        <% end %>
+        <p>
+          <%= f.hidden_field :evaluated_id %>
+          <label><%= l :label_evaluated %></label>
+          <span><%= @rating.evaluated.login %></span>
+        </p>
+        <p><%= f.select :mark, 1..3, include_blank: true, required: true %></p>
+        <p><%= f.text_area :comments, rows: 5 %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <%= submit_tag l(:button_rate) %>
+
+<% end %>

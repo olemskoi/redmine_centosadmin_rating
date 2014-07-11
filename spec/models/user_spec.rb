@@ -3,10 +3,15 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe User do
   describe '.rating' do
     before :each do
-      @user    = User.first
-      @ratings = [create(:rating, evaluated: @user, evaluator: User.last, issue: Issue.first),
-                 create(:rating, evaluated: @user, evaluator: User.last, issue: Issue.last),
-                 create(:rating, evaluated: @user, evaluator: User.last, issue: Issue.first, created_on: (Date.today - 3))]
+      @project_1   = create :project
+      @project_2   = create :project
+      @user = (create :member, project: @project_1, role_name: 'Developer').user
+      @evaluator = (create :member, project: @project_1, role_name: 'Manager').user
+      @issue_1   =  create :issue,  project: @project_1, author: @evaluator, assigned_to: @user
+      @issue_2   =  create :issue,  project: @project_2, author: @evaluator, assigned_to: @user
+      @ratings = [create(:rating, evaluated: @user, evaluator: @evaluator, issue: @issue_1),
+                  create(:rating, evaluated: @user, evaluator: @evaluator, issue: @issue_2),
+                  create(:rating, evaluated: @user, evaluator: @evaluator, issue: @issue_1, created_on: (Date.today - 3))]
     end
     describe 'without options' do
       it 'returns average mark for user by all projects and all time' do
@@ -19,7 +24,7 @@ describe User do
     end
 
     it 'returns average mark for user between only in the specific project' do
-      expect(@user.rating({project_id: Issue.first.project_id})).to eq((@ratings[0].mark + @ratings[2].mark) / 2)
+      expect(@user.rating({project_id: @issue_1.project_id})).to eq((@ratings[0].mark + @ratings[2].mark) / 2)
     end
   end
 end

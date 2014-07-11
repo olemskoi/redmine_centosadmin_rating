@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ActivitiesController do
-  fixtures :users, :issues, :projects
 
   before :each do
     @project   = create :project
@@ -14,12 +13,12 @@ describe ActivitiesController do
 
   describe 'GET index' do
     before :each do
-      @rating = create :rating, evaluated: @evaluated, evaluator: @evaluator, issue: @issue
+      @rating = create :rating, evaluated: @evaluated, evaluator: @evaluator, issue: @issue, project: @project
     end
 
     it 'events include event about the created rating' do
       get :index
-      expect(assigns(:events_by_day).first).to include(@rating)
+      expect(assigns(:events_by_day).values.first).to include(@rating)
     end
   end
 

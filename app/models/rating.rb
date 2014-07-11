@@ -24,4 +24,11 @@ class Rating < ActiveRecord::Base
 
   acts_as_activity_provider find_options: { include: [:project] },
                             author_key: :evaluator_id
+
+  before_validation :set_project
+
+  private
+    def set_project
+      self.project_id = issue.project_id if project_id.nil? && !issue_id.nil?
+    end
 end

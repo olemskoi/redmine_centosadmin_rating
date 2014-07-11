@@ -28,8 +28,8 @@ RSpec.configure do |config|
 
   config.before :each do
     DatabaseCleaner.start
-    Role.find_by_name('Manager').add_permission! :centos_rate
-    Role.find_by_name('Developer').add_permission! :centos_be_rated
+    Role.find_by_name('Manager').add_permission! :centos_rate, :view_ratings
+    Role.find_by_name('Developer').add_permission! :centos_be_rated, :view_ratings
   end
 
   config.after(:each) do

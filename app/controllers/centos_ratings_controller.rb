@@ -1,6 +1,6 @@
 class CentosRatingsController < ApplicationController
   #before_filter :authorize
-  before_filter :find_rating, only: [:show, :edit, :update]
+  before_filter :find_rating, expect: [:index, :new]
 
 
   def index 

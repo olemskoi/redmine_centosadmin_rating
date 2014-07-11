@@ -88,4 +88,35 @@ describe CentosRatingsController do
       end
     end
   end
+
+  describe 'GET edit' do
+    it 'assigns the requested rating as @rating' do
+      @rating = create(:centos_rating, evaluated: evaluated, evaluator: evaluator)
+      get :edit, id: @rating.to_param
+      expect(assigns :rating).to eq(@rating)
+    end
+  end
+
+  describe 'PUT update' do
+    before :each do
+      @rating = create(:centos_rating, evaluated: evaluated, evaluator: evaluator)
+      put :update, id: @rating.to_param, centos_rating: {mark: 3}
+    end
+    it 'redirects to the created rating' do
+      response.should redirect_to(CentosRating.last)
+    end
+
+    it 'update mark' do
+      expect(@rating.reload.mark).to eq(3)
+    end
+  end
+
+  describe 'DELETE destroy' do
+    it 'destroy the requested rating' do
+      @rating = create(:centos_rating, evaluated: evaluated, evaluator: evaluator)
+      expect {
+        delete :destroy, id: @rating.to_param
+      }.to change{CentosRating.count}.by(-1)
+    end
+  end
 end

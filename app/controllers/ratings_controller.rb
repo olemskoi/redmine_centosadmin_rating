@@ -2,7 +2,7 @@ class RatingsController < ApplicationController
   before_filter :find_rating, except: [:index, :new, :create]
   before_filter :build_rating_from_params, only: [:create, :update]
   before_filter :set_project, except: [:new, :index]
-  #before_filter :authorize,   expect: [:new, :index]
+  before_filter :authorize,   expect: [:new, :index]
 
 
   def index 
@@ -15,10 +15,11 @@ class RatingsController < ApplicationController
     @rating = User.current.centos_evaluations.build
     unless params[:issue_id].blank?
       @rating.issue = Issue.find params[:issue_id]
-      @rating.project = @rating.issue.project
+      @project, @rating.project = @rating.issue.project
       @rating.evaluated = @rating.issue.assigned_to
     end
     @rating.evaluated = User.find params[:user_id] unless params[:user_id].blank?
+    authorize
   end
 
   def edit; end

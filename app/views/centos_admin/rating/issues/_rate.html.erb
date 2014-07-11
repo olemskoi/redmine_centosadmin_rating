@@ -6,7 +6,7 @@
      assigned.allowed_to?( :centos_be_rated, @project ) &&
      User.current.allowed_to?( :centos_rate, @project )
 
-    rating = CentosRating.issue_rating( issue, User.current ).first
+    rating = Rating.issue_rating( issue, User.current ).first
 %>
   <hr />
   <div>

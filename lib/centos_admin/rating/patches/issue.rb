@@ -4,7 +4,7 @@ module CentosAdmin::Rating::Patches
   module Issue
     def self.included(base)
       base.class_eval do
-        has_many :centos_ratings
+        has_many :ratings
       end
     end
   end

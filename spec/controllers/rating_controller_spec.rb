@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe CentosRatingsController do
+describe RatingsController do
   fixtures :users, :issues
 
   let(:evaluated) {User.first}
@@ -12,7 +12,8 @@ describe CentosRatingsController do
 
   describe 'GET index' do
     before :each do
-      @ratings = [create(:centos_rating, evaluated: evaluated, evaluator: evaluator)]
+      @ratings = [create(:rating, evaluated: evaluated, evaluator: evaluator)]
+      #puts Rating.count
     end
 
     it 'assigns all ratings as @ratings' do
@@ -23,7 +24,7 @@ describe CentosRatingsController do
 
   describe 'GET show' do
     before :each do
-      @rating = create(:centos_rating, evaluated: evaluated, evaluator: evaluator)
+      @rating = create(:rating, evaluated: evaluated, evaluator: evaluator)
       get :show, id: @rating
     end
 
@@ -35,7 +36,7 @@ describe CentosRatingsController do
   describe 'GET new' do
     it 'assigns a new rating as @raiting' do
       get :new
-      assigns(:rating).should be_a_new(CentosRating)
+      assigns(:rating).should be_a_new(Rating)
     end
 
     describe 'as subresource of issue' do
@@ -73,25 +74,25 @@ describe CentosRatingsController do
 
       it 'creates a new CentosRating' do
         expect {
-          post :create, centos_rating: valid_attributes
-        }.to change{CentosRating.count}.by(1)
+          post :create, rating: valid_attributes
+        }.to change{Rating.count}.by(1)
       end
       it 'assigns a newly created rating as @rating' do
-        post :create, centos_rating: valid_attributes
-        expect(assigns :rating).to be_a(CentosRating)
+        post :create, rating: valid_attributes
+        expect(assigns :rating).to be_a(Rating)
         expect(assigns :rating).to be_persisted
       end
 
       it 'redirects to the created rating' do
-        post :create, centos_rating: valid_attributes
-        response.should redirect_to(CentosRating.last)
+        post :create, rating: valid_attributes
+        response.should redirect_to(Rating.last)
       end
     end
   end
 
   describe 'GET edit' do
     it 'assigns the requested rating as @rating' do
-      @rating = create(:centos_rating, evaluated: evaluated, evaluator: evaluator)
+      @rating = create(:rating, evaluated: evaluated, evaluator: evaluator)
       get :edit, id: @rating.to_param
       expect(assigns :rating).to eq(@rating)
     end
@@ -99,11 +100,11 @@ describe CentosRatingsController do
 
   describe 'PUT update' do
     before :each do
-      @rating = create(:centos_rating, evaluated: evaluated, evaluator: evaluator)
-      put :update, id: @rating.to_param, centos_rating: {mark: 3}
+      @rating = create(:rating, evaluated: evaluated, evaluator: evaluator)
+      put :update, id: @rating.to_param, rating: {mark: 3}
     end
     it 'redirects to the created rating' do
-      response.should redirect_to(CentosRating.last)
+      response.should redirect_to(Rating.last)
     end
 
     it 'update mark' do
@@ -113,10 +114,10 @@ describe CentosRatingsController do
 
   describe 'DELETE destroy' do
     it 'destroy the requested rating' do
-      @rating = create(:centos_rating, evaluated: evaluated, evaluator: evaluator)
+      @rating = create(:rating, evaluated: evaluated, evaluator: evaluator)
       expect {
         delete :destroy, id: @rating.to_param
-      }.to change{CentosRating.count}.by(-1)
+      }.to change{Rating.count}.by(-1)
     end
   end
 end

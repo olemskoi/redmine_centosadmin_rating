@@ -1,4 +1,6 @@
-class CentosRating < ActiveRecord::Base
+class Rating < ActiveRecord::Base
+  self.table_name = 'centos_ratings'
+
   unloadable
 
   include Redmine::SafeAttributes

@@ -5,8 +5,25 @@ class RatingsController < ApplicationController
   before_filter :authorize,   except: [:new, :index]
 
 
+  helper :sort
+  include SortHelper
+  helper :queries
+  include QueriesHelper
+
+
   def index 
-    @ratings = Rating.all
+    @project = Project.find params[:project_id]
+    @query = RatingQuery.build_from_params params, project: @project, :name => '_'
+
+    sort_init(@query.sort_criteria.empty? ? [['created_on', 'desc']] : @query.sort_criteria)
+    sort_update(@query.sortable_columns)
+    scope = @query.results_scope(order: sort_clause).
+      includes(:project, :evaluated, :evaluator, :issue).
+      preload(issue: [:project, :tracker, :status, :assigned_to, :priority])
+
+    @entry_count = scope.count
+    @entry_pages = Paginator.new @entry_count, per_page_option, params['page']
+    @entries = scope.offset(@entry_pages.offset).limit(@entry_pages.per_page).all
   end
   
   def show; end

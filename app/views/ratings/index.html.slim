@@ -40,17 +40,18 @@ h2 = l :label_ratings
               = column_header column
             th
         tbody
-          - entries.each do |entry|
+          - @entries.each do |entry|
             tr class="#{ cycle("odd", "even") } hascontextmenu"
               td.checkbox = check_box_tag("ids[]", entry.id, false, :id => nil)
               = raw @query.inline_columns.map {|column| "<td class=\"#{column.css_classes}\">#{column_content(column, entry)}</td>"}.join
               td.buttons
-                - if entry.editable_by?( User.current )
-                  = link_to image_tag('edit.png'), edit_time_entry_path(entry), title: l(:button_edit)
-                  = link_to image_tag('delete.png'), time_entry_path(entry),
-                                                       data: { confirm: l(:text_are_you_sure) },
-                                                       method: :delete,
-                                                       title: l(:button_delete)
+                /
+                  - if entry.editable_by?( User.current )
+                    = link_to image_tag('edit.png'), edit_time_entry_path(entry), title: l(:button_edit)
+                    = link_to image_tag('delete.png'), time_entry_path(entry),
+                                                         data: { confirm: l(:text_are_you_sure) },
+                                                         method: :delete,
+                                                         title: l(:button_delete)
 
 = context_menu time_entries_context_menu_path
 

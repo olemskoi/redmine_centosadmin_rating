@@ -1,7 +1,7 @@
 = title l :label_centos_rating
 
 = labelled_form_for @rating,
-                    url: user_ratings_path(@rating.evaluated),
+                    url: ratings_path,
                     html: { id: 'centos-rating-form' } do |f|
 
   = error_messages_for @rating

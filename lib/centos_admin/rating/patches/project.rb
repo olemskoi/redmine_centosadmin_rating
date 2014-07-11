@@ -11,3 +11,5 @@ module CentosAdmin::Rating::Patches
 end
 
 Project.send :include, CentosAdmin::Rating::Patches::Project
+
+

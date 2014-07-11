@@ -1,7 +1,7 @@
 resources :issues, only: [] do
-  resources :ratings, only: [:new, :create], controller: :centos_ratings
+  resources :centos_ratings, only: [:new, :create]
 end
 resources :users, only: [] do
-  resources :ratings, only: [:new, :create], controller: :centos_ratings
+  resources :centos_ratings, only: [:new, :create]
 end
-resources :ratings, only: [:show, :destroy], controller: :centos_ratings
+resources :centos_ratings, only: [:new, :create, :index, :show, :destroy]

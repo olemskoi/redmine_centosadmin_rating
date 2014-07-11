@@ -1,18 +1,33 @@
 class CentosRatingsController < ApplicationController
-  before_filter :do_things
+  #before_filter :authorize
+  before_filter :find_rating, only: [:show, :edit, :update]
 
-  def show
+
+  def index 
+    @ratings = CentosRating.all
   end
+  
+  def show;  end
 
   def new
+    @rating = User.current.centos_evaluations.build
+    unless params[:issue_id].blank?
+      @rating.issue = Issue.find params[:issue_id]
+      @rating.project = @rating.issue.project
+      @rating.evaluated = @rating.issue.assigned_to
+    end
+    @rating.evaluated = User.find params[:user_id] unless params[:user_id].blank?
+  end
+
+  def edit; end
+
+  def update
+    update_rating :edit
   end
 
   def create
-    if @rating.save
-      redirect_to rating_path @rating
-    else
-      render action: 'new'
-    end
+    @rating = User.current.centos_evaluations.build
+    update_rating :new
   end
 
   def destroy
@@ -25,26 +40,18 @@ class CentosRatingsController < ApplicationController
   end
 
   protected
+  def find_rating
+    @rating = CentosRating.find params[:id]
+  rescue ActiveRecord::RecordNotFound
+    render_404
+  end
 
-  def do_things
-    if params[:id]
-      @rating = CentosRating.find params[:id]
-
-    elsif params[:rating]
-      @rating = CentosRating.new(params[:rating].merge({ evaluator: User.current }))
-
+  def update_rating(fail_rednder)
+    @rating.safe_attributes = params[:centos_rating]
+    if @rating.save
+      redirect_to centos_rating_path(@rating)
     else
-      @rating = CentosRating.new
-      if params[:issue_id]
-        @rating.issue = Issue.find params[:issue_id]
-        @rating.project = @rating.issue.project
-        @rating.evaluated = @rating.issue.assigned_to
-      elsif params[:user_id]
-        @rating.evaluated = User.find params[:user_id]
-      end
+      render status: 422, action: fail_rednder
     end
-
-    @project = @rating.project
-    authorize params[:controller], params[:action], true
   end
 end

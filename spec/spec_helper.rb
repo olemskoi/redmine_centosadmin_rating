@@ -5,7 +5,9 @@ redmine_root = ENV["REDMINE_ROOT"] || File.dirname(__FILE__) + "/../../.."
 require File.expand_path(redmine_root + "/config/environment")
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'factory_girl'
 
+Dir["#{File.dirname(__FILE__)}/factories/*.rb"].each {|file| require file }
 
 RSpec.configure do |config|
   # If you're not using ActiveRecord you should remove these
@@ -15,27 +17,6 @@ RSpec.configure do |config|
   config.use_instantiated_fixtures  = false
   config.fixture_path = File.expand_path(redmine_root + '/test/fixtures/')
 
-  # == Fixtures
-  #
-  # You can declare fixtures for each example_group like this:
-  #   describe "...." do
-  #     fixtures :table_a, :table_b
-  #
-  # Alternatively, if you prefer to declare them only once, you can
-  # do so right here. Just uncomment the next line and replace the fixture
-  # names with your fixtures.
-  #
-  # config.global_fixtures = :table_a, :table_b
-  #
-  # If you declare global fixtures, be aware that they will be declared
-  # for all of your examples, even those that don't use them.
-  #
-  # == Mock Framework
-  #
-  # RSpec uses it's own mocking framework by default. If you prefer to
-  # use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
+  config.include FactoryGirl::Syntax::Methods
+
 end

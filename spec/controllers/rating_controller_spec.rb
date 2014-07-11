@@ -5,6 +5,7 @@ describe RatingsController do
 
   let(:evaluated) {User.first}
   let(:evaluator) {User.last}
+  let(:rating)    { create :rating, evaluated: evaluated, evaluator: evaluator, issue: Issue.first }
 
   let(:valid_attributes) do
     {evaluated_id: User.first.id, evaluator_id: User.last.id, mark: 1, comments: 'ok', issue_id: Issue.first.id}
@@ -12,7 +13,7 @@ describe RatingsController do
 
   describe 'GET index' do
     before :each do
-      @ratings = [create(:rating, evaluated: evaluated, evaluator: evaluator)]
+      @ratings = [rating]
       #puts Rating.count
     end
 
@@ -24,7 +25,7 @@ describe RatingsController do
 
   describe 'GET show' do
     before :each do
-      @rating = create(:rating, evaluated: evaluated, evaluator: evaluator)
+      @rating = rating
       get :show, id: @rating
     end
 
@@ -92,7 +93,7 @@ describe RatingsController do
 
   describe 'GET edit' do
     it 'assigns the requested rating as @rating' do
-      @rating = create(:rating, evaluated: evaluated, evaluator: evaluator)
+      @rating = rating
       get :edit, id: @rating.to_param
       expect(assigns :rating).to eq(@rating)
     end
@@ -100,7 +101,7 @@ describe RatingsController do
 
   describe 'PUT update' do
     before :each do
-      @rating = create(:rating, evaluated: evaluated, evaluator: evaluator)
+      @rating = rating
       put :update, id: @rating.to_param, rating: {mark: 3}
     end
     it 'redirects to the created rating' do
@@ -114,7 +115,7 @@ describe RatingsController do
 
   describe 'DELETE destroy' do
     it 'destroy the requested rating' do
-      @rating = create(:rating, evaluated: evaluated, evaluator: evaluator)
+      @rating = rating
       expect {
         delete :destroy, id: @rating.to_param
       }.to change{Rating.count}.by(-1)

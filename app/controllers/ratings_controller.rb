@@ -1,5 +1,5 @@
 class RatingsController < ApplicationController
-  before_filter :find_rating, except: [:index, :new]
+  before_filter :find_rating, except: [:index, :new, :create]
   before_filter :build_rating_from_params, only: [:create, :update]
   before_filter :set_project, except: [:new, :index]
   #before_filter :authorize,   expect: [:new, :index]
@@ -7,7 +7,6 @@ class RatingsController < ApplicationController
 
   def index 
     @ratings = Rating.all
-    puts 'das'
   end
   
   def show; end
@@ -45,15 +44,16 @@ class RatingsController < ApplicationController
 
     def save_rating(fail_rednder)
       if @rating.save
-        redirect_to centos_rating_path(@rating)
+        redirect_to rating_path(@rating)
       else
         render status: 422, action: fail_rednder
       end
     end
 
     def build_rating_from_params
-      @rating = Rating.new unless @rating.nil?
+      @rating = Rating.new if @rating.nil?
       @rating.safe_attributes = params[:rating]
+
     end
 
     def find_rating

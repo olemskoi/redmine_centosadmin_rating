@@ -18,5 +18,4 @@ RSpec.configure do |config|
   config.fixture_path = File.expand_path(redmine_root + '/test/fixtures/')
 
   config.include FactoryGirl::Syntax::Methods
-
 end

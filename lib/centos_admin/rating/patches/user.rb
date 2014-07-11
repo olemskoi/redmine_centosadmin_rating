@@ -1,4 +1,4 @@
-require_dependency 'member'
+require_dependency 'user'
 
 module CentosAdmin::Rating::Patches
   module User

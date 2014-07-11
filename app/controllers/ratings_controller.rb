@@ -69,7 +69,7 @@ class RatingsController < ApplicationController
     end
 
     def build_rating_from_params
-      @rating = Rating.new if @rating.nil?
+      @rating = User.current.centos_evaluations.build if @rating.nil?
       @rating.safe_attributes = params[:rating]
     end
 

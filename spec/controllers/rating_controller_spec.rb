@@ -3,12 +3,19 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe RatingsController do
   fixtures :users, :issues
 
-  let(:evaluated) {User.first}
-  let(:evaluator) {User.last}
-  let(:rating)    { create :rating, evaluated: evaluated, evaluator: evaluator, issue: Issue.first }
+  let(:rating)    {create :rating, evaluated: @evaluated, evaluator: @evaluator, issue: @issue }
+
+  before :each do
+    @project   = create :project
+    @evaluated = (create :member, project: @project, role_name: 'Developer').user
+    @evaluator = (create :member, project: @project, role_name: 'Manager').user
+    @issue     = create :issue,  project: @project, author: @evaluator, assigned_to: @evaluated
+    User.current = @evaluator
+    @request.session[:user_id] = @evaluator.id
+  end
 
   let(:valid_attributes) do
-    {evaluated_id: User.first.id, evaluator_id: User.last.id, mark: 1, comments: 'ok', issue_id: Issue.first.id}
+    {evaluated_id: @evaluated, mark: 1, comments: 'ok', issue_id: @issue}
   end
 
   describe 'GET index' do
@@ -42,7 +49,6 @@ describe RatingsController do
 
     describe 'as subresource of issue' do
       before :each do
-        @issue = Issue.first
         get :new, issue_id: @issue
       end
 
@@ -57,7 +63,7 @@ describe RatingsController do
 
     describe 'as subresource of users' do
       before :each do
-        @user = User.first
+        @user = @evaluated
         get :new, user_id: @user
       end
 
@@ -69,10 +75,6 @@ describe RatingsController do
 
   describe 'POST create' do
     describe 'with valid attributes' do
-      before :all do
-        User.current = evaluated
-      end
-
       it 'creates a new CentosRating' do
         expect {
           post :create, rating: valid_attributes

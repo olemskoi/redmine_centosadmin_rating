@@ -3,12 +3,18 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe ActivitiesController do
   fixtures :users, :issues, :projects
 
-  let(:evaluated) {User.first}
-  let(:evaluator) {User.last}
+  before :each do
+    @project   = create :project
+    @evaluated = (create :member, project: @project, role_name: 'Developer').user
+    @evaluator = (create :member, project: @project, role_name: 'Manager').user
+    @issue     = create :issue,  project: @project, author: @evaluator, assigned_to: @evaluated
+    User.current = @evaluator
+    @request.session[:user_id] = @evaluator.id
+  end
 
   describe 'GET index' do
     before :each do
-      @rating = create(:centos_rating, evaluated: evaluated, evaluator: evaluator)
+      @rating = create :rating, evaluated: @evaluated, evaluator: @evaluator, issue: @issue
     end
 
     it 'events include event about the created rating' do

@@ -1,13 +1,12 @@
 class RatingsController < ApplicationController
-  before_filter :find_rating, except: [:index, :new]
+  before_filter :find_rating, except: [:index, :new, :create]
   before_filter :build_rating_from_params, only: [:create, :update]
   before_filter :set_project, except: [:new, :index]
-  #before_filter :authorize,   expect: [:new, :index]
+  before_filter :authorize,   expect: [:new, :index]
 
 
   def index 
     @ratings = Rating.all
-    puts 'das'
   end
   
   def show; end
@@ -16,10 +15,11 @@ class RatingsController < ApplicationController
     @rating = User.current.centos_evaluations.build
     unless params[:issue_id].blank?
       @rating.issue = Issue.find params[:issue_id]
-      @rating.project = @rating.issue.project
+      @project, @rating.project = @rating.issue.project
       @rating.evaluated = @rating.issue.assigned_to
     end
     @rating.evaluated = User.find params[:user_id] unless params[:user_id].blank?
+    authorize
   end
 
   def edit; end
@@ -45,15 +45,16 @@ class RatingsController < ApplicationController
 
     def save_rating(fail_rednder)
       if @rating.save
-        redirect_to centos_rating_path(@rating)
+        redirect_to rating_path(@rating)
       else
         render status: 422, action: fail_rednder
       end
     end
 
     def build_rating_from_params
-      @rating = Rating.new unless @rating.nil?
+      @rating = Rating.new if @rating.nil?
       @rating.safe_attributes = params[:rating]
+
     end
 
     def find_rating

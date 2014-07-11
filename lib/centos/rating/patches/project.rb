@@ -1,6 +1,6 @@
 require_dependency 'project'
 
-module CentosAdmin::Rating::Patches
+module Centos::Rating::Patches
   module Project
     def self.included(base)
       base.class_eval do
@@ -10,6 +10,6 @@ module CentosAdmin::Rating::Patches
   end
 end
 
-Project.send :include, CentosAdmin::Rating::Patches::Project
+Project.send :include, Centos::Rating::Patches::Project
 
 

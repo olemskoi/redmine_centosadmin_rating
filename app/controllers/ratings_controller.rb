@@ -2,7 +2,7 @@ class RatingsController < ApplicationController
   before_filter :find_rating, except: [:index, :new, :create]
   before_filter :build_rating_from_params, only: [:create, :update]
   before_filter :set_project, except: [:new, :index]
-  before_filter :authorize,   expect: [:new, :index]
+  before_filter :authorize,   except: [:new, :index]
 
 
   def index 
@@ -43,18 +43,17 @@ class RatingsController < ApplicationController
 
   protected
 
-    def save_rating(fail_rednder)
+    def save_rating(fail_render)
       if @rating.save
-        redirect_to rating_path(@rating)
+        redirect_to rating_path @rating
       else
-        render status: 422, action: fail_rednder
+        render status: 422, action: fail_render
       end
     end
 
     def build_rating_from_params
       @rating = Rating.new if @rating.nil?
       @rating.safe_attributes = params[:rating]
-
     end
 
     def find_rating

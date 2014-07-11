@@ -1,10 +1,11 @@
 # Hooks
-require_dependency 'centos_admin/rating/hooks/issue'
+require_dependency 'centos/rating/hooks/issue'
+require_dependency 'centos/rating/hooks/user'
 
 # Patches
-require 'centos_admin/rating/patches/user'
-require 'centos_admin/rating/patches/issue'
-require 'centos_admin/rating/patches/project'
+require 'centos/rating/patches/user'
+require 'centos/rating/patches/issue'
+require 'centos/rating/patches/project'
 
 Redmine::Plugin.register :redmine_centosadmin_rating do
   name 'Redmine Centosadmin Rating plugin'
@@ -20,6 +21,6 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
   end
 
   Redmine::Activity.map do |activity|
-    activity.register :centos_ratings
+    activity.register :ratings
   end
 end

@@ -1,6 +1,6 @@
 require_dependency 'issue'
 
-module CentosAdmin::Rating::Patches
+module Centos::Rating::Patches
   module Issue
     def self.included(base)
       base.class_eval do
@@ -10,4 +10,4 @@ module CentosAdmin::Rating::Patches
   end
 end
 
-Issue.send :include, CentosAdmin::Rating::Patches::Issue
+Issue.send :include, Centos::Rating::Patches::Issue

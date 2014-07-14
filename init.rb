@@ -18,11 +18,12 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
   project_module :centosadmin_rating do
     permission :centos_rate, { ratings: [:new, :create, :show, :update, :edit, :destroy] }
     permission :centos_be_rated, {}
+    permission :view_ratings, { ratings: [:index, :show] }
   end
 
   Redmine::Activity.map do |activity|
     activity.register :ratings
   end
-  permission :ratings, {ratings: [:index, :show]}
+
   menu :project_menu, :ratings, { controller: 'ratings', action: 'index' }, caption: :rating, param: :project_id
 end

@@ -1,13 +1,13 @@
-# English strings go here for Rails i18n
 en:
-  permission_centos_rate: rate
-  permission_centos_be_rated: be rate
+  permission_centos_rate: Rate
+  permission_centos_be_rated: Be rate
+  view_ratings: View ratings
   project_module_centosadmin_rating: Rating
   field_mark: Rate
   label_centos_rating: Rating
   button_rate: Rate
-  label_evaluator: Оценщик
-  label_evaluated: Оцениваемый
+  label_evaluator: Evaluator
+  label_evaluated: Evaluated
   label_average_mark: Average rating
   rating: Rating
   field_evaluator: Evaluator

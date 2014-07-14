@@ -21,7 +21,7 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 
-  config.before(:suite) do
+  config.before :suite do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with :transaction
   end
@@ -32,7 +32,7 @@ RSpec.configure do |config|
     Role.find_by_name('Developer').add_permission! :centos_be_rated, :view_ratings
   end
 
-  config.after(:each) do
+  config.after :each do
     DatabaseCleaner.clean
   end
 end

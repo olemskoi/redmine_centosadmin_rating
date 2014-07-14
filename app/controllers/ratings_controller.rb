@@ -13,7 +13,7 @@ class RatingsController < ApplicationController
 
   def index
     @project = Project.find params[:project_id]
-    @query = RatingQuery.build_from_params params, project: @project, :name => '_'
+    @query = RatingQuery.build_from_params params, project: @project, name: '_'
 
     sort_init(@query.sort_criteria.empty? ? [['created_on', 'desc']] : @query.sort_criteria)
     sort_update(@query.sortable_columns)

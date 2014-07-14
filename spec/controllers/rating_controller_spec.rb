@@ -25,8 +25,8 @@ describe RatingsController do
     end
 
     it 'assigns all ratings as @ratings' do
-      get :index
-      expect(assigns(:ratings)).to eq(@ratings)
+      get :index, project_id: @project.id
+      expect(assigns(:entries)).to eq(@ratings)
     end
   end
 

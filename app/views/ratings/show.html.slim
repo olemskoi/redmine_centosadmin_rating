@@ -1,0 +1,21 @@
+= title l :label_centos_rating
+
+.box.tabular
+  p
+    label = l :label_evaluator
+    span = link_to @rating.evaluator.login, user_path(@rating.evaluator)
+
+  - if @rating.issue
+    p
+      label = l :label_issue
+      = link_to @rating.issue.subject, issue_path(@rating.issue)
+
+  p
+    label = l :label_evaluated
+    span = link_to @rating.evaluated.login, user_path(@rating.evaluated)
+  p
+    label = l :field_mark
+    span = @rating.mark
+  p
+    label = l :field_comments
+    span = @rating.comments

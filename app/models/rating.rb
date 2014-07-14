@@ -20,7 +20,7 @@ class Rating < ActiveRecord::Base
   acts_as_event title: proc{ |r| "#{r.evaluator.login} -> #{r.evaluated.login}#{ r.issue ? "(#{r.issue.subject})" : '' }: #{r.mark}" }, 
                 description: :comments, 
                 author: :evaluator, 
-                url: proc{ |r| { controller: 'centos_ratings', action: 'show', id: r.id } }
+                url: proc{ |r| { controller: 'ratings', action: 'show', id: r.id } }
 
   acts_as_activity_provider find_options: { include: [:project] },
                             author_key: :evaluator_id
@@ -28,7 +28,8 @@ class Rating < ActiveRecord::Base
   before_validation :set_project
 
   private
-    def set_project
-      self.project_id = issue.project_id if project_id.nil? && !issue_id.nil?
-    end
+  
+  def set_project
+    self.project_id = issue.project_id if project_id.nil? && !issue_id.nil?
+  end
 end

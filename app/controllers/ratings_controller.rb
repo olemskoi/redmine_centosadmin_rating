@@ -6,7 +6,7 @@ class RatingsController < ApplicationController
 
 
   def index 
-    @ratings = Rating.all
+    @ratings = Rating.allz
   end
   
   def show; end

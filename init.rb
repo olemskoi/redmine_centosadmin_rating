@@ -23,4 +23,6 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
   Redmine::Activity.map do |activity|
     activity.register :ratings
   end
+
+  menu :top_menu, :ratings, { controller: 'ratings', action: 'index' }, caption: :rating
 end

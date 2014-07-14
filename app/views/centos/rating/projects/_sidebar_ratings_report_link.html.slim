@@ -1,0 +1,2 @@
+- if User.current.allowed_to?(:view_ratings, project)
+  p = link_to l(:label_rating_plural), project_ratings_path(project)

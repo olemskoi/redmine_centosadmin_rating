@@ -27,6 +27,10 @@ class Rating < ActiveRecord::Base
 
   before_validation :set_project
 
+  def editable_by?( user )
+    user == evaluator || user.admin?
+  end
+
   private
   
   def set_project

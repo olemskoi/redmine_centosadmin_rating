@@ -3,6 +3,7 @@ class RatingsController < ApplicationController
   before_filter :build_rating_from_params, only: [:create, :update]
   before_filter :set_project, except: [:new, :index]
   before_filter :authorize,   except: [:new, :index]
+  before_filter :check_editability, only: [:edit, :update, :destroy]
 
 
   helper :sort
@@ -28,7 +29,8 @@ class RatingsController < ApplicationController
     @average_mark = scope.average :mark
   end
   
-  def show; end
+  def show
+  end
 
   def new
     @rating = User.current.centos_evaluations.build
@@ -39,9 +41,12 @@ class RatingsController < ApplicationController
     end
     @rating.evaluated = User.find params[:user_id] unless params[:user_id].blank?
     authorize
+    render :form
   end
 
-  def edit; end
+  def edit
+    render :form
+  end
 
   def update
     save_rating :edit
@@ -62,28 +67,34 @@ class RatingsController < ApplicationController
 
   protected
 
-    def save_rating(fail_render)
-      if @rating.save
-        redirect_to rating_path @rating
-      else
-        render status: 422, action: fail_render
-      end
+  def save_rating(fail_render)
+    if @rating.save
+      redirect_to rating_path @rating
+    else
+      render status: 422, action: fail_render
     end
+  end
 
-    def build_rating_from_params
-      @rating = User.current.centos_evaluations.build if @rating.nil?
-      @rating.safe_attributes = params[:rating]
-    end
+  def build_rating_from_params
+    @rating = User.current.centos_evaluations.build if @rating.nil?
+    @rating.safe_attributes = params[:rating]
+  end
 
-    def find_rating
-      @rating = Rating.find params[:id]
-    rescue ActiveRecord::RecordNotFound
-      render_404
-    end
+  def find_rating
+    @rating = Rating.find params[:id]
+  rescue ActiveRecord::RecordNotFound
+    render_404
+  end
 
-    def set_project
-      @project = @rating.issue.project
-    end
+  def set_project
+    @project = @rating.issue.project
+  end
 
-    def authorize; super(params[:controller], params[:action], global = true); end
+  def authorize
+    super params[:controller], params[:action], global = true
+  end
+
+  def check_editability
+    render_403 unless @rating.editable_by?( User.current )
+  end
 end

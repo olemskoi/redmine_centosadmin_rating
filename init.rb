@@ -16,7 +16,7 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
   author_url 'http://centos-admin.ru/'
  
   project_module :centosadmin_rating do
-    permission :centos_rate, { ratings: [:new, :create, :show, :update, :edit, :destroy] }
+    permission :centos_rate, { ratings: [:new, :create, :show, :edit, :update, :destroy] }
     permission :centos_be_rated, {}
     permission :view_ratings, { ratings: [:index, :show] }
   end

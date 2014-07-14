@@ -1,7 +1,7 @@
 en:
   permission_centos_rate: Rate
   permission_centos_be_rated: Be rate
-  view_ratings: View ratings
+  permission_view_ratings: View ratings
   project_module_centosadmin_rating: Rating
   field_mark: Rate
   label_centos_rating: Rating

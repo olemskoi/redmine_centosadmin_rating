@@ -1,3 +1,16 @@
 # English strings go here for Rails i18n
 en:
-  # my_label: "My label"
+  permission_centos_rate: rate
+  permission_centos_be_rated: be rate
+  project_module_centosadmin_rating: Rating
+  field_mark: Rate
+  label_centos_rating: Rating
+  button_rate: Rate
+  label_evaluator: Оценщик
+  label_evaluated: Оцениваемый
+  label_average_mark: Average rating
+  rating: Rating
+  field_evaluator: Evaluator
+  field_evaluated: Evaluated
+  label_ratings: Ratings
+  label_rating_plural: Ratings

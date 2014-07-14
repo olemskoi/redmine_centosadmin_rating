@@ -1,7 +1,6 @@
 # Hooks
 require_dependency 'centos/rating/hooks/issue'
 require_dependency 'centos/rating/hooks/user'
-require_dependency 'centos/rating/hooks/project'
 
 # Patches
 require 'centos/rating/patches/user'

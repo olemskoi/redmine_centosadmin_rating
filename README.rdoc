@@ -1,3 +1,0 @@
-= redmine_centosadmin_rating
-
-Description goes here

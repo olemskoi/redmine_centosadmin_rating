@@ -9,11 +9,11 @@ require 'centos/rating/patches/project'
 
 Redmine::Plugin.register :redmine_centosadmin_rating do
   name 'Redmine Centosadmin Rating plugin'
-  author 'Author name'
-  description 'This is a plugin for Redmine'
+  author 'Kernel Wed Studio'
+  description 'Redmine Centosadmin Rating plugin'
   version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
+  url 'https://github.com/olemskoi/redmine_centosadmin_rating'
+  author_url 'http://centos-admin.ru/'
  
   project_module :centosadmin_rating do
     permission :centos_rate, { ratings: [:new, :create, :show, :update, :edit, :destroy] }
@@ -23,6 +23,6 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
   Redmine::Activity.map do |activity|
     activity.register :ratings
   end
-
-  menu :top_menu, :ratings, { controller: 'ratings', action: 'index' }, caption: :rating
+  permission :ratings, {ratings: [:index, :show]}
+  menu :project_menu, :ratings, { controller: 'ratings', action: 'index' }, caption: :rating, param: :project_id
 end

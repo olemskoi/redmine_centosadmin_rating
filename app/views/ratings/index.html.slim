@@ -24,6 +24,9 @@ h2 = l :label_ratings
       = link_to l(:button_clear), {project_id: @project, issue_id: @issue}, class: 'icon icon-reload'
 
 - unless @entries.empty?
+  .total-hours
+    p #{ l :label_average_mark }: #{ html_hours( @average_mark.round(2).to_s ) }
+
   = form_tag
     = hidden_field_tag 'back_url', url_for(params)
     .autoscroll

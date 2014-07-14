@@ -24,6 +24,8 @@ class RatingsController < ApplicationController
     @entry_count = scope.count
     @entry_pages = Paginator.new @entry_count, per_page_option, params['page']
     @entries = scope.offset(@entry_pages.offset).limit(@entry_pages.per_page).all
+
+    @average_mark = scope.average :mark
   end
   
   def show; end

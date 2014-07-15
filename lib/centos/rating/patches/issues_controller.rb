@@ -15,7 +15,7 @@ module Centos::Rating::Patches
       def update_rating
         pars = params[:issue][:rating]
         user = ::User.current
-        rating = Rating.issue_rating @issue, user
+        rating = ::Rating.issue_rating @issue, user
 
         return unless !pars.blank? && user.allowed_to?(:centos_rate, @issue.project)
 
@@ -28,7 +28,7 @@ module Centos::Rating::Patches
           end
         else
           unless pars[:mark].blank?
-            Rating.create({
+            ::Rating.create({
               issue_id: @issue.id,
               project_id: @issue.project_id,
               evaluator_id: user.id,

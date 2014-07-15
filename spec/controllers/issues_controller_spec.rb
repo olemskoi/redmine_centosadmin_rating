@@ -17,7 +17,7 @@ describe IssuesController do
       }.to change{ @issue.reload.description }.to 'hello'
     end
 
-    describe 'no rating' do
+    context 'issue without rating' do
       it 'no rating => no change' do
         expect{
           put :update, id: @issue.id, issue: { description: 'hello' }
@@ -31,7 +31,7 @@ describe IssuesController do
       end
     end
 
-    describe 'with rating' do
+    context 'issue with rating' do
       before do
         @rating = create :rating, issue: @issue, project: @issue.project, evaluator: @evaluator, evaluated: @evaluated, mark: 1
       end

@@ -6,18 +6,14 @@
 
   - rating = Rating.issue_rating(issue, User.current).first
   
-  div style='margin-left: 3px'
-    table.attributes
-      tbody
-        tr
-          th
-          td
-          th
-            p: strong = l :label_centos_rating
-          td
-            - if rating.nil?
-              = link_to l(:button_rate), new_issue_rating_path(issue)
-            - else
-              p
-                strong = "#{rating.mark}"
-                = " - #{rating.comments}" unless rating.comments.blank?
+  tr
+    th
+    td
+    th = l :label_centos_rating
+    td
+      - if rating.nil?
+        = link_to l(:button_rate), new_issue_rating_path(issue)
+      - else
+        p
+          strong = "#{rating.mark}"
+          = " - #{rating.comments}" unless rating.comments.blank?

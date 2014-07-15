@@ -17,7 +17,7 @@ module Centos::Rating::Patches
         user = ::User.current
         rating = Rating.issue_rating @issue, user
 
-        return unless user.allowed_to?(:centos_rate, @issue.project)
+        return unless !pars.blank? && user.allowed_to?(:centos_rate, @issue.project)
 
         if rating
           if pars[:mark].blank?

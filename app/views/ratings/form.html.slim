@@ -19,7 +19,7 @@
           label = l :label_evaluated
           span = @rating.evaluated.login
 
-        p = f.select :mark, 1..3, include_blank: true, required: true
+        p = f.select :mark, 1..5, include_blank: true, required: true
         p = f.text_area :comments, rows: 5
 
   = submit_tag l :button_rate

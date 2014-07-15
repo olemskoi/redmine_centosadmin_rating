@@ -14,9 +14,9 @@ module Centos::Rating::Patches
     module InstanceMethods
       def rating(options = {})
         scope = self.ratings
-        scope = scope.where 'project_id = ?', options[:project_id] unless options[:project_id].blank?
-        scope = scope.where 'created_on <= ?', options[:date_to] unless options[:date_to].blank?
-        scope = scope.where 'created_on >= ?', options[:date_from] unless options[:date_from].blank?
+        scope = scope.where 'project_id = ?',  options[:project_id] unless options[:project_id].blank?
+        scope = scope.where 'created_on <= ?', options[:date_to]    unless options[:date_to].blank?
+        scope = scope.where 'created_on >= ?', options[:date_from]  unless options[:date_from].blank?
         scope.average :mark
       end
     end

@@ -4,7 +4,7 @@ ru:
   permission_view_ratings: Просмотр оценок
   project_module_centosadmin_rating: Рейтинг
   field_mark: Оценка
-  label_centos_rating: 'Оценка:'
+  label_rating: Оценка
   button_rate: Оценить
   label_evaluator: Оценщик
   label_evaluated: Оцениваемый

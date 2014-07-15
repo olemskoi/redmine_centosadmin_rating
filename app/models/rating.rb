@@ -15,8 +15,6 @@ class Rating < ActiveRecord::Base
   validates_presence_of :evaluated, :evaluator
   validates :mark, inclusion: { in: 1..5 }, allow_blank: false
 
-  scope :issue_rating, lambda{ |issue, user| where evaluator_id: user.id, issue_id: issue.id }
-
   acts_as_event title: proc{ |r| "#{r.evaluator.login} -> #{r.evaluated.login}#{ r.issue ? " (#{r.issue.subject})" : '' }: #{r.mark}" },
                 description: :comments, 
                 author: :evaluator, 
@@ -29,6 +27,10 @@ class Rating < ActiveRecord::Base
 
   def editable_by?( user )
     user == evaluator || user.admin?
+  end
+
+  def self.issue_rating( issue, user )
+    where( evaluator_id: user.id, issue_id: issue.id ).first
   end
 
   private

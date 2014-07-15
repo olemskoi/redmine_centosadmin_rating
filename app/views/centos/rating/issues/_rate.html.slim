@@ -4,12 +4,12 @@
      assigned.allowed_to?(:centos_be_rated, @project) && \
      User.current.allowed_to?(:centos_rate, @project)
 
-  - rating = Rating.issue_rating(issue, User.current).first
+  - rating = Rating.issue_rating issue, User.current
   
   tr
     th
     td
-    th = l :label_centos_rating
+    th = l :label_rating
     td
       - if rating.nil?
         = link_to l(:button_rate), new_issue_rating_path(issue)

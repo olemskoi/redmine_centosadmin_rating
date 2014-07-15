@@ -6,6 +6,7 @@ require_dependency 'centos/rating/hooks/user'
 require 'centos/rating/patches/user'
 require 'centos/rating/patches/issue'
 require 'centos/rating/patches/project'
+require 'centos/rating/patches/issues_controller'
 
 Redmine::Plugin.register :redmine_centosadmin_rating do
   name 'Redmine Centosadmin Rating plugin'

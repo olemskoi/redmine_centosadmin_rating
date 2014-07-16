@@ -1,7 +1,4 @@
-- assigned = issue.assigned_to
-- if assigned && \
-     assigned.is_a?(User) && \
-     User.current.allowed_to?(:centos_rate, @project)
+- if User.current.allowed_to?(:centos_rate, @project)
 
   - rating = Rating.issue_rating issue, User.current
 

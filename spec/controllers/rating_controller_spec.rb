@@ -55,10 +55,6 @@ describe RatingsController do
       it 'set issue for @rating' do
         expect(assigns(:rating).issue).to eq(@issue)
       end
-
-      it 'set evaluated as @issue.assigned_to' do
-        expect(assigns(:rating).evaluated).to eq(@issue.assigned_to)
-      end
     end
 
     describe 'as subresource of users' do

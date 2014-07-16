@@ -12,6 +12,6 @@
       - else
         p
           - ratings.group_by(&:evaluated).each do |evaluated, items|
-            - average_mark = items.size == 0 ? 0 : items.inject(0) {|sum, el| sum + el.mark}.to_f 
+            - average_mark = items.size == 0 ? 0 : (items.inject(0) {|sum, el| sum + el.mark}.to_f / items.size)
             strong = "#{evaluated}: #{average_mark.round(2)}"
             br

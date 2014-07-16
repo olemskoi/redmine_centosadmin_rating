@@ -27,4 +27,5 @@ describe User do
       expect(@user.rating({project_id: @issue_1.project_id})).to eq((@ratings[0].mark + @ratings[2].mark) / 2)
     end
   end
+
 end

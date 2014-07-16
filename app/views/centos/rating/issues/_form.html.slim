@@ -1,13 +1,17 @@
 - assigned = issue.assigned_to
 - if assigned && \
      assigned.is_a?(User) && \
-     assigned.allowed_to?(:centos_be_rated, @project) && \
      User.current.allowed_to?(:centos_rate, @project)
 
   - rating = Rating.issue_rating issue, User.current
 
   fieldset
     legend = l :label_rating
+    p
+      label = l :label_evaluated
+      = select_tag 'issue[rating[evaluated_id]]', \
+                    options_for_select((@project.users_available_to :centos_be_rated).collect { |u| [u.login, u.id] }),\
+                    {required: true}
     p
       label = l :field_mark
       = select_tag 'issue[rating[mark]]', options_for_select(1..5, rating.try(:mark)), include_blank: true

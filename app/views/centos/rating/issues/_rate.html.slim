@@ -1,19 +1,20 @@
 - assigned = issue.assigned_to
 - if assigned && \
      assigned.is_a?(User) && \
-     assigned.allowed_to?(:centos_be_rated, @project) && \
      User.current.allowed_to?(:centos_rate, @project)
 
-  - rating = Rating.issue_rating issue, User.current
+  - ratings = issue.ratings
   
   tr
     th
     td
-    th = l :label_rating
+    th = "#{l :label_rating_plural}:"
     td
-      - if rating.nil?
+      - if ratings.empty?
         = link_to l(:button_rate), new_issue_rating_path(issue)
       - else
         p
-          strong = "#{rating.mark}"
-          = " - #{rating.comments}" unless rating.comments.blank?
+          - ratings.each do |rating|
+            strong = "#{rating.evaluated}: #{rating.mark}"
+            = " - #{rating.comments}" unless rating.comments.blank?
+            br

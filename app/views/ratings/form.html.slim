@@ -14,12 +14,8 @@
             label = l :label_issue
             span = @rating.issue.subject
         
-        p
-          = f.hidden_field :evaluated_id
-          label = l :label_evaluated
-          span = @rating.evaluated.login
-
-        p = f.select :mark, 1..5, include_blank: true, required: true
+        p = f.select :evaluated_id, (@project.users_available_to :centos_be_rated).collect { |u| [u.login, u.id] } , {required: true}
+        p = f.select :mark, 1..5, inclde_blank: true, required: true
         p = f.text_area :comments, rows: 5
 
   = submit_tag l :button_rate

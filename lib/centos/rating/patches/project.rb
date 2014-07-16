@@ -11,8 +11,8 @@ module Centos::Rating::Patches
     end
 
     module InstanceMethods
-      def users_allowed_to(action)
-        self.members.map {|m| m.user if m.user.allowed_to?(action, self)}
+      def users_available_to(action)
+        self.users.select {|u| u.allowed_to?(action, self)}
       end
     end
   end

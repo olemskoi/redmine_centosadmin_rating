@@ -26,7 +26,7 @@ describe IssuesController do
 
       it 'with params => create' do
         expect{
-          put :update, id: @issue.id, issue: { description: 'hello', rating: { mark: 3 } }
+          put :update, id: @issue.id, issue: { description: 'hello', rating: { evaluated_id: @evaluated.id, mark: 3 } }
         }.to change{ @issue.ratings.count }.by 1
       end
     end
@@ -44,13 +44,13 @@ describe IssuesController do
 
       it 'empty mark => destroy' do
         expect{
-          put :update, id: @issue.id, issue: { rating: { mark: '' } }
+          put :update, id: @issue.id, issue: { rating: { evaluated_id: @evaluated.id, mark: '' } }
         }.to change{ @issue.ratings.count }.by -1
       end
 
       it 'with params => update' do
         expect{
-          put :update, id: @issue.id, issue: { rating: { mark: 4 } }
+          put :update, id: @issue.id, issue: { rating: { evaluated_id: @evaluated.id, mark: 4 } }
         }.to change{ @rating.reload.mark }.to 4
       end
     end

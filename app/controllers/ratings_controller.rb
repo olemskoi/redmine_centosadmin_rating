@@ -37,7 +37,6 @@ class RatingsController < ApplicationController
     unless params[:issue_id].blank?
       @rating.issue = Issue.find params[:issue_id]
       @project, @rating.project = @rating.issue.project
-      @rating.evaluated = @rating.issue.assigned_to
     end
     @rating.evaluated = User.find params[:user_id] unless params[:user_id].blank?
     authorize

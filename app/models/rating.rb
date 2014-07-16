@@ -33,6 +33,10 @@ class Rating < ActiveRecord::Base
     where( evaluator_id: user.id, issue_id: issue.id ).first
   end
 
+  def self.find_or_initialize_by(attributes, &block)
+    where(attributes).first || new(attributes, &block)
+  end
+
   private
   
   def set_project

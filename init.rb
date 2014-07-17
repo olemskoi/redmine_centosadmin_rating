@@ -10,9 +10,9 @@ require 'centos/rating/patches/issues_controller'
 
 Redmine::Plugin.register :redmine_centosadmin_rating do
   name 'Redmine Centosadmin Rating plugin'
-  author 'Kernel Wed Studio'
+  author 'CentosAdmin'
   description 'Redmine Centosadmin Rating plugin'
-  version '0.0.1'
+  version '0.1.0'
   url 'https://github.com/olemskoi/redmine_centosadmin_rating'
   author_url 'http://centos-admin.ru/'
  

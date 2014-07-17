@@ -8,6 +8,9 @@ require 'centos/rating/patches/issue'
 require 'centos/rating/patches/project'
 require 'centos/rating/patches/issues_controller'
 
+# Mailers
+require_relative 'app/mailers/rating_mailer'
+
 Redmine::Plugin.register :redmine_centosadmin_rating do
   name 'Redmine Centosadmin Rating plugin'
   author 'CentosAdmin'

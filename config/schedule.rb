@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :day do
+every :day, at: '15:00am' do
   rake 'centos_rating:must_rate'
 end

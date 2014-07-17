@@ -11,9 +11,6 @@ require 'centos/rating/patches/issues_controller'
 # Mailers
 require_relative 'app/mailers/rating_mailer'
 
-# Rake
-#require_relative 'lib/tasks/centos_rating.rake'
-
 Redmine::Plugin.register :redmine_centosadmin_rating do
   name 'Redmine Centosadmin Rating plugin'
   author 'CentosAdmin'

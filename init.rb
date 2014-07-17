@@ -30,4 +30,6 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
   end
 
   menu :project_menu, :ratings, { controller: 'ratings', action: 'index' }, caption: :rating, param: :project_id
+
+  settings default: { 'must_rate' => false }, partial: 'centos/rating/settings'
 end

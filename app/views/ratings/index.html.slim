@@ -1,0 +1,60 @@
+h2 = l :label_rating_plural
+
+= form_tag({ controller: 'ratings', action: 'index', project_id: @project }, method: :get, id: 'query_form')
+
+  #query_form_with_buttons.hide-when-print
+    #query_form_content
+      
+      fieldset#filters class="collapsible #{ @query.new_record? ? '' : 'collapsed' }"
+        legend onclick='toggleFieldset(this);' = l :label_filter_plural
+        div style="#{ @query.new_record? ? '' : 'display: none;' }"
+          = render partial: 'queries/filters', locals: { query: @query }
+      
+      fieldset.collapsible.collapsed
+        legend onclick='toggleFieldset(this);' = l :label_options
+        div style='display: none;'
+          table
+            tr
+              td = l(:field_column_names)
+              td = render_query_columns_selection(@query)
+
+
+    p.buttons
+      = link_to_function l(:button_apply), 'submit_query_form("query_form")', class: 'icon icon-checked'
+      = link_to l(:button_clear), {project_id: @project, issue_id: @issue}, class: 'icon icon-reload'
+
+- unless @entries.empty?
+  .total-hours
+    p #{ l :label_average_mark }: #{ html_hours @average_mark.round(2).to_s }
+
+  = form_tag
+    = hidden_field_tag 'back_url', url_for(params)
+    .autoscroll
+      table.list
+        thead
+          tr
+            th.checkbox
+              = link_to image_tag('toggle_check.png'),
+                {},
+                onclick: 'toggleIssuesSelection(this); return false;',
+                title: "#{l(:button_check_all)}/#{l(:button_uncheck_all)}"
+
+            - @query.inline_columns.each do |column|
+              = column_header column
+            th
+        tbody
+          - @entries.each do |entry|
+            tr class="#{ cycle("odd", "even") } hascontextmenu"
+              td.checkbox = check_box_tag("ids[]", entry.id, false, :id => nil)
+              = raw @query.inline_columns.map {|column| "<td class=\"#{column.css_classes}\">#{column_content(column, entry)}</td>"}.join
+              td.buttons
+                - if entry.editable_by?( User.current )
+                  = link_to image_tag('edit.png'), edit_rating_path(entry), title: l(:button_edit)
+                  = link_to image_tag('delete.png'), rating_path(entry),
+                                                       data: { confirm: l(:text_are_you_sure) },
+                                                       method: :delete,
+                                                       title: l(:button_delete)
+
+= context_menu time_entries_context_menu_path
+
+p.pagination = pagination_links_full @entry_pages, @entry_count

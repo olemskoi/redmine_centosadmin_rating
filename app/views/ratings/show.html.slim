@@ -1,0 +1,33 @@
+= title l :label_rating
+
+.box.tabular
+  p
+    label = l :label_evaluator
+    span = link_to @rating.evaluator.login, user_path(@rating.evaluator)
+
+  - if @rating.issue
+    p
+      label = l :label_project
+      = link_to @rating.project.name, project_path(@rating.project)
+
+    p
+      label = l :label_issue
+      = link_to @rating.issue.subject, issue_path(@rating.issue)
+
+  p
+    label = l :label_evaluated
+    span = link_to @rating.evaluated.login, user_path(@rating.evaluated)
+  p
+    label = l :field_mark
+    span = @rating.mark
+  p
+    label = l :field_comments
+    span = @rating.comments
+
+.buttons
+  - if @rating.editable_by?( User.current )
+    = link_to image_tag('edit.png'), edit_rating_path(@rating), title: l(:button_edit)
+    = link_to image_tag('delete.png'), rating_path(@rating),
+                                         data: { confirm: l(:text_are_you_sure) },
+                                         method: :delete,
+                                         title: l(:button_delete)

@@ -1,0 +1,21 @@
+= title l :label_rating
+
+= labelled_form_for @rating, html: { id: 'centos-rating-form' } do |f|
+
+  = error_messages_for @rating
+
+  .box.tabular
+    .all_attributes
+      = labelled_fields_for :rating, @rating do |f|
+        - if @rating.issue
+          p
+            = f.hidden_field :issue_id
+            = f.hidden_field :project_id
+            label = l :label_issue
+            span = @rating.issue.subject
+        
+        p = f.select :evaluated_id, (@project.users_available_to :centos_be_rated).collect { |u| [u.login, u.id] } , {required: true}
+        p = f.select :mark, 1..5, inclde_blank: true, required: true
+        p = f.text_area :comments, rows: 5
+
+  = submit_tag l :button_rate

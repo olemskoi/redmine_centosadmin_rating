@@ -1,0 +1,15 @@
+en:
+  permission_centos_rate: Rate
+  permission_centos_be_rated: Be rate
+  permission_view_ratings: View ratings
+  project_module_centosadmin_rating: Rating
+  field_mark: Rate
+  label_rating: Rating
+  button_rate: Rate
+  label_evaluator: Evaluator
+  label_evaluated: Evaluated
+  label_average_mark: Average rating
+  rating: Rating
+  field_evaluator: Evaluator
+  field_evaluated: Evaluated
+  label_rating_plural: Ratings

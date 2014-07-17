@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :hour do
+every 10.minutes do
   rake 'centos_rating:must_rate'
 end

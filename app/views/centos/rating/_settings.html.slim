@@ -1,3 +1,10 @@
 p
   input id='must_rate' type='checkbox' name='settings[must_rate]' checked=Setting.plugin_redmine_centosadmin_rating['must_rate']
   label for='must_rate' = l :field_must_rate
+p
+  = select_tag 'settings[must_status]',
+                options_for_select( IssueStatus.pluck(:name), Setting.plugin_redmine_centosadmin_rating['must_status'] )
+  label = l :field_must_status
+p
+  input id='must_day' type='text' name='settings[must_day]' value=Setting.plugin_redmine_centosadmin_rating['must_day']
+  label for='must_day' = l :field_must_day

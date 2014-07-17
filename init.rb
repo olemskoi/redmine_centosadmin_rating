@@ -11,6 +11,9 @@ require 'centos/rating/patches/issues_controller'
 # Mailers
 require_relative 'app/mailers/rating_mailer'
 
+# Rake
+#require_relative 'lib/tasks/centos_rating.rake'
+
 Redmine::Plugin.register :redmine_centosadmin_rating do
   name 'Redmine Centosadmin Rating plugin'
   author 'CentosAdmin'
@@ -31,5 +34,6 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
 
   menu :project_menu, :ratings, { controller: 'ratings', action: 'index' }, caption: :rating, param: :project_id
 
-  settings default: { 'must_rate' => false }, partial: 'centos/rating/settings'
+  settings default: { 'must_rate' => false, 'must_status' => 'Closed', 'must_day' => '3' },
+           partial: 'centos/rating/settings'
 end

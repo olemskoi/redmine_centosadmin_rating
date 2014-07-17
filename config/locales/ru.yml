@@ -14,3 +14,5 @@ ru:
   field_evaluated: Оцениваемый
   label_rating_plural: Оценки
   field_must_rate: Оценка обязательна
+  field_must_status: Оценка обязательна при статусе
+  field_must_day: Оценка обязательна на день

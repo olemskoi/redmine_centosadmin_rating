@@ -1,7 +1,6 @@
 namespace :centos_rating do
   task must_rate: :environment do
     settings = Setting.plugin_redmine_centosadmin_rating
-
     if settings['must_rate']
       Project.all.each do |project|
         if project.enabled_modules.pluck(:name).include?('centosadmin_rating')

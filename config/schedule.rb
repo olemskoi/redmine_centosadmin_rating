@@ -19,6 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
+set :path, File.expand_path(File.dirname(__FILE__) + "/../../..")
+
 every 10.minutes do
   rake 'centos_rating:must_rate'
 end

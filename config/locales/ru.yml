@@ -13,3 +13,6 @@ ru:
   field_evaluator: Оценщик
   field_evaluated: Оцениваемый
   label_rating_plural: Оценки
+  field_must_rate: Уведомлять о необходимости оценки
+  field_must_status: Оценка обязательна при статусе
+  field_must_day: Оценка обязательна на день

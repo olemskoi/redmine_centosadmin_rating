@@ -1,4 +1,7 @@
+source 'https://rubygems.org'
+
 gem 'slim-rails'
+gem 'whenever'
 
 group :test do
   gem 'rspec-rails', '~>2.14.2'

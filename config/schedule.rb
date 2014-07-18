@@ -21,6 +21,6 @@
 
 set :path, File.expand_path(File.dirname(__FILE__) + "/../../..")
 
-every 10.minutes do
+every :day, at: '15:00am' do
   rake 'centos_rating:must_rate'
 end

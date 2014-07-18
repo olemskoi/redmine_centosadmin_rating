@@ -46,7 +46,7 @@ bundle exec rspec spec
 
 Work on this plugin was fully funded by [centos-admin.ru](http://centos-admin.ru)
 
-#Developers
+## Developers
 
 Developed by [kernel web](http://kerweb.ru/)
 

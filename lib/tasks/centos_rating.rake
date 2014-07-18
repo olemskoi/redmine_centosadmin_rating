@@ -4,9 +4,14 @@ namespace :centos_rating do
     if settings['must_rate']
       Project.all.each do |project|
         if project.enabled_modules.pluck(:name).include?('centosadmin_rating')
-          project.issues.includes(:status).where( 'issue_statuses.name' => settings['must_status'], 'must_rate_sended' => false ).each do |issue|
+          project.issues.includes(:status).where( 
+            'issue_statuses.name' => settings['must_status'], 
+            'must_rate_sended' => false 
+          ).each do |issue|
             if issue.ratings.where(evaluator_id: issue.author_id).count == 0 &&
+              issue.assigned_to_id &&
               issue.author.allowed_to?(:centos_rate, issue.project) &&
+              issue.assigned_to.allowed_to?(:centos_be_rated, issue.project) &&
               (Time.now - issue.updated_on).to_i / 1.day >= settings['must_day'].to_i
 
               RatingMailer.must_rate(issue).deliver

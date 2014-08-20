@@ -1,9 +1,9 @@
 class Rating < ActiveRecord::Base
-  self.table_name = 'centos_ratings'
+  include Redmine::SafeAttributes
 
   unloadable
 
-  include Redmine::SafeAttributes
+  self.table_name = 'centos_ratings'   
 
   safe_attributes 'mark', 'comments', 'evaluated_id', 'evaluator_id', 'issue_id', 'project_id'
 

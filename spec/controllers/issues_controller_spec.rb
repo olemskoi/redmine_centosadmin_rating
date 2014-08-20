@@ -11,12 +11,6 @@ describe IssuesController do
       @request.session[:user_id] = @evaluator.id
     end
 
-    it 'just check' do
-      expect{
-        put :update, id: @issue.id, issue: { description: 'hello' }
-      }.to change{ @issue.reload.description }.to 'hello'
-    end
-
     context 'issue without rating' do
       it 'no rating => no change' do
         expect{

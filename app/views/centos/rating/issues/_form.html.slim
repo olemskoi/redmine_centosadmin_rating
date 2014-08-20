@@ -7,8 +7,8 @@
     p
       label = l :label_evaluated
       = select_tag 'issue[rating[evaluated_id]]', \
-                    options_for_select((@project.users_available_to :centos_be_rated).collect { |u| [u.login, u.id] }),\
-                    {required: true}
+                    options_for_select((@project.users_available_to :centos_be_rated).collect { |u| [u.login, u.id] }, \
+                                        rating.try(:evaluated_id)), include_blank: true
     p
       label = l :field_mark
       = select_tag 'issue[rating[mark]]', options_for_select(1..5, rating.try(:mark)), include_blank: true

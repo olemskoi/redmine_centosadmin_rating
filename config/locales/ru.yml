@@ -1,7 +1,7 @@
 ru:
   permission_centos_rate: Оценивать
   permission_centos_be_rated: Быть оцененным
-  permission_view_ratings: Просмотр оценок
+  permission_view_staff_ratings: Просмотр оценок
   project_module_centosadmin_rating: Рейтинг
   field_mark: Оценка
   label_rating: Оценка
@@ -9,6 +9,7 @@ ru:
   label_evaluator: Оценщик
   label_evaluated: Оцениваемый
   label_average_mark: Средняя оценка
+  staff_rating: Оценки
   rating: Оценки
   field_evaluator: Оценщик
   field_evaluated: Оцениваемый

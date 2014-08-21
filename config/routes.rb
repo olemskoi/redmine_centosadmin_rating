@@ -1,10 +1,10 @@
 resources :issues, only: [] do
-  resources :ratings, only: :new
+  resources :staff_ratings, only: :new
 end
 resources :users, only: [] do
-  resources :ratings, only: :new
+  resources :staff_ratings, only: :new
 end
 resources :projects, only: [] do
-  resources :ratings, only: :index
+  resources :staff_ratings, only: :index
 end
-resources :ratings
+resources :staff_ratings

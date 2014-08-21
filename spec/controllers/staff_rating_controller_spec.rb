@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe RatingsController do
+describe StaffRatingsController do
   fixtures :users, :issues
 
   let(:rating)    {create :rating, evaluated: @evaluated, evaluator: @evaluator, issue: @issue }
@@ -44,7 +44,7 @@ describe RatingsController do
   describe 'GET new' do
     it 'assigns a new rating as @raiting' do
       get :new
-      assigns(:rating).should be_a_new(Rating)
+      assigns(:rating).should be_a_new(StaffRating)
     end
 
     describe 'as subresource of issue' do
@@ -71,20 +71,20 @@ describe RatingsController do
 
   describe 'POST create' do
     describe 'with valid attributes' do
-      it 'creates a new CentosRating' do
+      it 'creates a new StaffRating' do
         expect {
           post :create, rating: valid_attributes
-        }.to change{Rating.count}.by(1)
+        }.to change{StaffRating.count}.by(1)
       end
       it 'assigns a newly created rating as @rating' do
         post :create, rating: valid_attributes
-        expect(assigns :rating).to be_a(Rating)
+        expect(assigns :rating).to be_a(StaffRating)
         expect(assigns :rating).to be_persisted
       end
 
       it 'redirects to the created rating' do
         post :create, rating: valid_attributes
-        response.should redirect_to(Rating.last)
+        response.should redirect_to(StaffRating.last)
       end
     end
   end
@@ -103,7 +103,7 @@ describe RatingsController do
       put :update, id: @rating.to_param, rating: {mark: 3}
     end
     it 'redirects to the created rating' do
-      response.should redirect_to(Rating.last)
+      response.should redirect_to(StaffRating.last)
     end
 
     it 'update mark' do
@@ -116,7 +116,7 @@ describe RatingsController do
       @rating = rating
       expect {
         delete :destroy, id: @rating.to_param
-      }.to change{Rating.count}.by(-1)
+      }.to change{StaffRating.count}.by(-1)
     end
   end
 end

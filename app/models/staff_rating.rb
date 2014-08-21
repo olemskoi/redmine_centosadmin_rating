@@ -1,9 +1,7 @@
-class Rating < ActiveRecord::Base
+class StaffRating < ActiveRecord::Base
   include Redmine::SafeAttributes
 
   unloadable
-
-  self.table_name = 'centos_ratings'   
 
   safe_attributes 'mark', 'comments', 'evaluated_id', 'evaluator_id', 'issue_id', 'project_id'
 
@@ -18,7 +16,7 @@ class Rating < ActiveRecord::Base
   acts_as_event title: proc{ |r| "#{r.evaluator.login} -> #{r.evaluated.login}#{ r.issue ? " (#{r.issue.subject})" : '' }: #{r.mark}" },
                 description: :comments, 
                 author: :evaluator, 
-                url: proc{ |r| { controller: 'ratings', action: 'show', id: r.id } }
+                url: proc{ |r| { controller: 'staff_ratings', action: 'show', id: r.id } }
 
   acts_as_activity_provider find_options: { include: [:project] },
                             author_key: :evaluator_id

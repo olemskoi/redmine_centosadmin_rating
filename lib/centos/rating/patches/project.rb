@@ -6,7 +6,7 @@ module Centos::Rating::Patches
       base.send :include, InstanceMethods
 
       base.class_eval do
-        has_many :ratings
+        has_many :ratings, class_name: 'StaffRating'
       end
     end
 

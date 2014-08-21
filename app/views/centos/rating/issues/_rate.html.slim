@@ -8,7 +8,7 @@
     th = "#{l :label_rating_plural}:"
     td
       - if ratings.empty?
-        = link_to l(:button_rate), new_issue_rating_path(issue)
+        = link_to l(:button_rate), new_issue_staff_rating_path(issue)
       - else
         p
           - ratings.group_by(&:evaluated).each do |evaluated, items|

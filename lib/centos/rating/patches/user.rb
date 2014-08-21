@@ -6,8 +6,8 @@ module Centos::Rating::Patches
       base.send :include, InstanceMethods
 
       base.class_eval do
-        has_many :ratings, foreign_key: :evaluated_id
-        has_many :centos_evaluations, class_name: 'Rating', foreign_key: :evaluator_id
+        has_many :ratings, class_name: 'StaffRating', foreign_key: :evaluated_id
+        has_many :centos_evaluations, class_name: 'StaffRating', foreign_key: :evaluator_id
       end
     end
 

@@ -1,13 +1,13 @@
 class RatingQuery < Query
-  self.queried_class = Rating
+  self.queried_class = StaffRating
 
   self.available_columns = [
     QueryColumn.new(:project, sortable: "#{Project.table_name}.name", groupable: true),
     QueryColumn.new(:evaluator, sortable: lambda{ User.fields_for_order_statement }, groupable: true),
     QueryColumn.new(:evaluated, sortable: lambda{ User.fields_for_order_statement }, groupable: true),
-    QueryColumn.new(:mark, sortable: "#{Rating.table_name}.mark", groupable: true),
+    QueryColumn.new(:mark, sortable: "#{StaffRating.table_name}.mark", groupable: true),
     QueryColumn.new(:comments),
-    QueryColumn.new(:created_on, sortable: "#{Rating.table_name}.created_on", default_order: 'desc', groupable: true)
+    QueryColumn.new(:created_on, sortable: "#{StaffRating.table_name}.created_on", default_order: 'desc', groupable: true)
   ]
 
   def initialize(attributes=nil, *args)
@@ -72,7 +72,7 @@ class RatingQuery < Query
   def results_scope(options={})
     order_option = [group_by_sort_order, options[:order]].flatten.reject(&:blank?)
 
-    Rating.
+    StaffRating.
       where(statement).
       order(order_option).
       joins(joins_for_order_statement(order_option.join(',')))

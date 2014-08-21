@@ -15,7 +15,7 @@ module Centos::Rating::Patches
       def update_rating
         rating_from_params = params[:issue][:rating]
         return unless !rating_from_params.blank? && ::User.current.allowed_to?(:centos_rate, @issue.project) && !rating_from_params[:evaluated_id].blank?
-        rating = ::Rating.find_or_initialize_by issue_id: @issue.id,
+        rating = ::StaffRating.find_or_initialize_by issue_id: @issue.id,
                                                 evaluator_id: ::User.current.id,
                                                 evaluated_id: rating_from_params.delete(:evaluated_id)
         return rating.destroy if rating_from_params[:mark].blank?

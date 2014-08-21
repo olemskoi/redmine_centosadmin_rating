@@ -1,6 +1,6 @@
 h2 = l :label_rating_plural
 
-= form_tag({ controller: 'ratings', action: 'index', project_id: @project }, method: :get, id: 'query_form')
+= form_tag({ controller: 'staff_ratings', action: 'index', project_id: @project }, method: :get, id: 'query_form')
 
   #query_form_with_buttons.hide-when-print
     #query_form_content

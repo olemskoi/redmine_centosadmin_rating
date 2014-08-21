@@ -1,6 +1,6 @@
 - if User.current.allowed_to?(:centos_rate, @project)
 
-  - rating = Rating.issue_rating issue, User.current
+  - rating = StaffRating.issue_rating issue, User.current
 
   fieldset
     legend = l :label_rating

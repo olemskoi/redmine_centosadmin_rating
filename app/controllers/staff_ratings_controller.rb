@@ -1,4 +1,4 @@
-class RatingsController < ApplicationController
+class StaffRatingsController < ApplicationController
   before_filter :find_rating, except: [:index, :new, :create]
   before_filter :build_rating_from_params, only: [:create, :update]
   before_filter :set_project, except: [:new, :index]
@@ -68,7 +68,7 @@ class RatingsController < ApplicationController
 
   def save_rating(fail_render)
     if @rating.save
-      redirect_to rating_path @rating
+      redirect_to staff_rating_path @rating
     else
       render status: 422, action: fail_render
     end
@@ -80,7 +80,7 @@ class RatingsController < ApplicationController
   end
 
   def find_rating
-    @rating = Rating.find params[:id]
+    @rating = StaffRating.find params[:id]
   rescue ActiveRecord::RecordNotFound
     render_404
   end

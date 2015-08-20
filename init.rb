@@ -12,7 +12,7 @@ require 'centos/rating/patches/issues_controller'
 require_relative 'app/mailers/rating_mailer'
 
 Redmine::Plugin.register :redmine_centosadmin_rating do
-  name 'Redmine Centosadmin Rating plugin'
+  name 'Redmine Centos-admin.ru Rating plugin'
   author 'CentosAdmin'
   description 'Redmine Centosadmin Rating plugin'
   version '0.1.0'

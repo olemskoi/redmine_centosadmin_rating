@@ -1,7 +1,7 @@
 class StaffRating < ActiveRecord::Base
   include Redmine::SafeAttributes
 
-  unloadable
+  # unloadable
 
   safe_attributes 'mark', 'comments', 'evaluated_id', 'evaluator_id', 'issue_id', 'project_id'
 
@@ -18,7 +18,7 @@ class StaffRating < ActiveRecord::Base
                 author: :evaluator, 
                 url: proc{ |r| { controller: 'staff_ratings', action: 'show', id: r.id } }
 
-  acts_as_activity_provider scope: preload(:project),
+  acts_as_activity_provider scope: joins(:project),
                             author_key: :evaluator_id
 
   before_validation :set_project

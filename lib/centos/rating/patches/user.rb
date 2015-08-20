@@ -23,4 +23,4 @@ module Centos::Rating::Patches
   end
 end
 
-User.send :include, Centos::Rating::Patches::User
+

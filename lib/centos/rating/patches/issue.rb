@@ -10,4 +10,3 @@ module Centos::Rating::Patches
   end
 end
 
-Issue.send :include, Centos::Rating::Patches::Issue

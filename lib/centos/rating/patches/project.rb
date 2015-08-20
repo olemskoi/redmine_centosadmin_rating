@@ -18,6 +18,4 @@ module Centos::Rating::Patches
   end
 end
 
-Project.send :include, Centos::Rating::Patches::Project
-
 

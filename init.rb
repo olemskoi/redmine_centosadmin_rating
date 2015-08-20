@@ -34,3 +34,21 @@ Redmine::Plugin.register :redmine_centosadmin_rating do
   settings default: { 'must_rate' => false, 'must_status' => 'Closed', 'must_day' => '3' },
            partial: 'centos/rating/settings'
 end
+
+ActionDispatch::Callbacks.to_prepare do
+  unless Issue.included_modules.include? Centos::Rating::Patches::Issue
+    Issue.send :include, Centos::Rating::Patches::Issue
+  end
+
+  unless IssuesController.included_modules.include? Centos::Rating::Patches::IssuesController
+    IssuesController.send :include, Centos::Rating::Patches::IssuesController
+  end
+
+  unless Project.included_modules.include? Centos::Rating::Patches::Project
+    Project.send :include, Centos::Rating::Patches::Project
+  end
+
+  unless User.included_modules.include? Centos::Rating::Patches::User
+    User.send :include, Centos::Rating::Patches::User
+  end
+end

@@ -14,11 +14,12 @@ class StaffRatingsController < ApplicationController
 
   def index
     @project = Project.find params[:project_id]
-    @query = RatingQuery.build_from_params params, project: @project, name: '_'
+    @query = RatingQuery.build_from_params params
+    @query.project = @project
 
     sort_init(@query.sort_criteria.empty? ? [['created_on', 'desc']] : @query.sort_criteria)
     sort_update(@query.sortable_columns)
-    scope = @query.results_scope(order: sort_clause).
+    scope = @query.results_scope(order: sort_clause).joins(:project).
       includes(:project, :evaluated, :evaluator, :issue).
       preload(issue: [:project, :tracker, :status, :assigned_to, :priority])
 
@@ -76,7 +77,7 @@ class StaffRatingsController < ApplicationController
 
   def build_rating_from_params
     @rating = User.current.centos_evaluations.build if @rating.nil?
-    @rating.safe_attributes = params[:rating]
+    @rating.safe_attributes = rating_params
   end
 
   def find_rating
@@ -91,6 +92,10 @@ class StaffRatingsController < ApplicationController
 
   def authorize
     super params[:controller], params[:action], global = true
+  end
+
+  def rating_params
+    params.require(:rating).permit :issue_id, :evaluated_id, :mark, :comments, :project_id
   end
 
   def check_editability

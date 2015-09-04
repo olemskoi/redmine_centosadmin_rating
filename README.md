@@ -20,7 +20,7 @@ rake redmine:plugins:migrate
 
 To activate the notification of need to evaluate the closed tasks, run
 ```
-cd /redmine_path && bundle exec whenever -w redmine_centosadmin_rating -f plugins/redmine_centosadmin_rating/config/schedule.rb
+cd /redmine_path && bundle exec whenever -i redmine_centosadmin_rating -f plugins/redmine_centosadmin_rating/config/schedule.rb
 ```
 
 For more information about whenever, see - https://github.com/javan/whenever

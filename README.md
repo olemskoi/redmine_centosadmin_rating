@@ -2,7 +2,8 @@ Redmine Rating
 ==========================
 
 
-##Installation
+## Installation
+
 Clone repository to your redmine/plugins directory
 ```
 git clone git://github.com/olemskoi/redmine_centosadmin_rating.git
@@ -27,7 +28,8 @@ For more information about whenever, see - https://github.com/javan/whenever
 
 Restart redmine
 
-##Configuration 
+## Configuration 
+
 To activate notifications:
 
 1. go to redmine_host/settings/plugin/redmine_centosadmin_rating.
@@ -35,16 +37,15 @@ To activate notifications:
 3. select issue's status.
 4. set notice day.
 
-##Running Tests
+## Running Tests
 ```
 cd /redmine_path/plugins/redmine_centosadmin_rating
 bundle exec rspec spec
 ```
 
-
 ## Sponsors
 
-Work on this plugin was fully funded by [centos-admin.ru](http://centos-admin.ru)
+Work on this plugin was fully funded by [Southbridge](https://southbridge.io)
 
 ## Developers
 

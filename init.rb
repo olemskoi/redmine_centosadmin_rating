@@ -13,12 +13,12 @@ require_relative 'app/mailers/rating_mailer'
 
 Redmine::Plugin.register :redmine_centosadmin_rating do
   name 'Redmine Centos-admin.ru Rating plugin'
-  author 'CentosAdmin'
+  author 'Southbridge'
   description 'Redmine Centosadmin Rating plugin'
   version '0.1.0'
   url 'https://github.com/olemskoi/redmine_centosadmin_rating'
-  author_url 'http://centos-admin.ru/'
- 
+  author_url 'https://southbridge.io'
+
   project_module :centosadmin_rating do
     permission :centos_rate, { staff_ratings: [:new, :create, :show, :edit, :update, :destroy] }
     permission :centos_be_rated, {}

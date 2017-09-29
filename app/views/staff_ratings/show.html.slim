@@ -3,7 +3,7 @@
 .box.tabular
   p
     label = l :label_evaluator
-    span = link_to @rating.evaluator.login, user_path(@rating.evaluator)
+    span = link_to @rating.evaluator.name, user_path(@rating.evaluator)
 
   - if @rating.issue
     p
@@ -16,7 +16,7 @@
 
   p
     label = l :label_evaluated
-    span = link_to @rating.evaluated.login, user_path(@rating.evaluated)
+    span = link_to @rating.evaluated.name, user_path(@rating.evaluated)
   p
     label = l :field_mark
     span = @rating.mark
